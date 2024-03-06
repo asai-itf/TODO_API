@@ -35,7 +35,7 @@ public class ToDoService {
 		return null;
 	}
 	
-	public void deleteTodo(String id) {  //TODOをidで指定して削除する　　←　後でTODOが見つからなかった場合の例外処理
+	public void deleteTodo(String id) {  //TODOをidで指定して削除する
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getId().equals(id)) {
 				list.remove(i);
