@@ -1,69 +1,60 @@
 package com.example.todoAPI.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.todoAPI.model.ToDo;
+import com.example.todoAPI.model.ToDoWithoutId;
+import com.example.todoAPI.repository.ToDoMapper;
 
 @Service
 public class ToDoService {
 	
-	private List<ToDo> list = new ArrayList<>();
-	private static int counter = 0;
+	@Autowired
+	ToDoMapper mapper;
 	
 	public List<ToDo> getAllTodos(){  //TODOすべてをリストで返す
-		return list;
+		return mapper.selectAll();
 	}
 	
-	public void addTodo(ToDo todo) {  //TODOを追加する
-		counter++;
-		String id = String.valueOf(counter);  //ToDoが追加されるたびに1増える変数でidを設定
-		todo.setId(id);
-		list.add(todo);
+	public void addTodo(ToDoWithoutId toDoWithoutId) {  //TODOを追加する
+		mapper.insert(toDoWithoutId);;
 	}
 	
-	public ToDo getTodo(String id) {  //TODOをidで指定して一つ返す
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getId().equals(id)) {
-				return list.get(i);
-			}
-		}
-		//throw new ItemNotFoundException(id);
-		return null;
+	public ToDo getTodo(int id) {  //TODOをidで指定して一つ返す
+		return mapper.select(id);
 	}
 	
-	public void deleteTodo(String id) {  //TODOをidで指定して削除する
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getId().equals(id)) {
-				list.remove(i);
-			}
-		}
+	public void deleteTodo(int id) {  //TODOをidで指定して削除する
+		mapper.delete(id);
 	}
 	
-	public void updateTodo(ToDo todo, String id) {  //TODOを更新する
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getId().equals(id)) {
-				list.set(i, todo);
-				list.get(i).setId(id);  //idは変えない
-			}
-		}
+	public void updateTodo(ToDoWithoutId toDoWithoutId, int id) {  //TODOを更新する
+		mapper.update(toDoWithoutId, id);
 	}
 	
 	//フィルタリング
 	public List<ToDo> statusFilter(String status){  //statusによってフィルタリングしてリストを返す
-		List<ToDo> sList = list.stream().filter(todo -> status.equals(todo.getStatus()))
-				.collect(Collectors.toList());
-		return sList;
+		//List<ToDo> list = mapper.selectAll().stream().filter(todo -> status.equals(todo.getStatus()))
+		//		.collect(Collectors.toList());   // ←DB接続前
+		return mapper.statusFilter(status);
 	}
 	
 	public List<ToDo> titleFilter(String title){  //titleによってフィルタリングしてリストを返す
-		List<ToDo> tList = list.stream().filter(todo -> !(todo.getTitle().indexOf(title) == -1))
-				.collect(Collectors.toList());
-		return tList;
-		
+		//List<ToDo> list = mapper.selectAll().stream().filter(todo -> !(todo.getTitle().indexOf(title) == -1))
+		//		.collect(Collectors.toList());　　　// ←DB接続前
+		return mapper.titleFilter(title);
+	}
+	
+	//ソート
+	public List<ToDo> statusSort(String status){
+		return mapper.statusSort(status);
+	}
+	
+	public List<ToDo> idSort(int id){
+		return mapper.idSort(id);
 	}
 
 }

@@ -1,24 +1,22 @@
 package com.example.todoAPI.model;
 
-public class ToDo {
+public class ToDoWithoutId {
 	
-	private int id;
 	private String title;
 	private String status;
 	private String details;
 	
-	public ToDo() {
+	public ToDoWithoutId() {
 		
 	}
 	
-	public ToDo(String title,String status, String details) {
+	public ToDoWithoutId(String title, String status, String details) {
 		this();
 		this.title = title;
 		this.status = status;
 		this.details = details;
 	}
 
-	// ↓ getterとsetter
 	public String getTitle() {
 		return title;
 	}
@@ -41,14 +39,6 @@ public class ToDo {
 
 	public void setDetails(String details) {
 		this.details = details;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 }
