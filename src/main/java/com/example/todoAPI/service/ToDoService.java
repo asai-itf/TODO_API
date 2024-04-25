@@ -1,7 +1,6 @@
 package com.example.todoAPI.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public class ToDoService {
 	}
 	
 	public ToDo getTodo(int id) {  //TODOをidで指定して一つ返す
-		return mapper.select(id);
+ 		return mapper.select(id);
 	}
 	
 	public void deleteTodo(int id) {  //TODOをidで指定して削除する
@@ -49,12 +48,12 @@ public class ToDoService {
 	}
 	
 	//ソート
-	public List<ToDo> statusSort(String status){
-		return mapper.statusSort(status);
+	public List<ToDo> statusSort(){
+		return mapper.statusSort();
 	}
 	
-	public List<ToDo> idSort(int id){
-		return mapper.idSort(id);
+	public List<ToDo> idSort(){
+		return mapper.idSort();
 	}
 
 }

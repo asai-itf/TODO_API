@@ -9,7 +9,7 @@ import com.example.todoAPI.model.ToDo;
 import com.example.todoAPI.model.ToDoWithoutId;
 
 @Mapper
-public interface ToDoMapper {
+public interface ToDoMapper{
 
 	List<ToDo> selectAll();
 	void insert(ToDoWithoutId toDoWithoutId);
@@ -22,6 +22,6 @@ public interface ToDoMapper {
 	List<ToDo> titleFilter(String title);
 	
 	//Sort
-	List<ToDo> statusSort(String status);
-	List<ToDo> idSort(int id);
+	List<ToDo> statusSort();
+	List<ToDo> idSort();
 }

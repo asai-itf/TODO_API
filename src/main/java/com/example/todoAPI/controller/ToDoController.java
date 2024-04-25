@@ -37,7 +37,7 @@ public class ToDoController {
 		//	throw new ItemNotFoundException(id);
 		//}
 		//return toDoService.getTodo(id);
-		return toDoService.getTodo(id);  //.orElseThrow(() -> new ItemNotFoundException(id));
+		return toDoService.getTodo(id);  // .orElseThrow(() -> new ItemNotFoundException(id));
 	}
 	
 	@DeleteMapping("/todos/{id}")  //idを指定してTODOを削除
@@ -69,13 +69,13 @@ public class ToDoController {
 	
 	//ソート
 	@GetMapping("/todos/sort/status")
-	public List<ToDo> statusSort(String status){
-		return toDoService.statusSort(status);
+	public List<ToDo> statusSort(){
+		return toDoService.statusSort();
 	}
 	
 	@GetMapping("/todos/sort/id")
-	public List<ToDo> idSort(int id){
-		return toDoService.idSort(id);
+	public List<ToDo> idSort(){
+		return toDoService.idSort();
 	}
 
 }
